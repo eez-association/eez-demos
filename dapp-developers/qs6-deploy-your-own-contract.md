@@ -1,4 +1,4 @@
-# Deploy Your Own Contract
+# Deploy Your Own Contract with Remix
 
 > Every code block is cited at a pinned commit; interfaces may move after it.
 

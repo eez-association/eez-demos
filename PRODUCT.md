@@ -44,7 +44,7 @@ What a neighbor can't truthfully copy: every code panel is verbatim source cited
   - whether to keep the hero phrase "as naturally as a same-chain call";
   - the unmeasured "DEPLOY A CONTRACT · ~15 MIN" pill;
   - rewrapping pr1–4 and pr6, which overflow their panels and keep the CI geometry job red;
-  - the Deploy Your Own Contract card (qs6, Remix's EEZ tab) carries a Remix Settings → EEZ workaround until Remix builds the RollupX composers in.
+  - the Deploy Your Own Contract with Remix card (qs6, Remix's EEZ tab) carries a Remix Settings → EEZ workaround until Remix builds the RollupX composers in.
 
 ## Brand Commitments
 

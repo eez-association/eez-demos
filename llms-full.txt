@@ -457,7 +457,7 @@ revert ExecutionNotInCurrentBlock(rollupId);
 // too (EEZL2.sol:791).
 ```
 
-## Deploy Your Own Contract
+## Deploy Your Own Contract with Remix
 
 Deploy a contract on L1 with Remix, create its proxy on L2 in Remix's EEZ tab, and call it from L2. retrieve() on L1 returns the number you stored.
 

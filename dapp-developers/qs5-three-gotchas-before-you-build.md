@@ -52,7 +52,7 @@ revert ExecutionNotInCurrentBlock(rollupId);
 
 ## Next
 
-[Deploy Your Own Contract](qs6-deploy-your-own-contract.md)
+[Deploy Your Own Contract with Remix](qs6-deploy-your-own-contract.md)
 
 ---
 
