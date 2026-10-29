@@ -143,3 +143,19 @@ exported variables. Install Foundry from verified official release artifacts.
 
 Historical review and plan documents describe older commands and are not current
 installation or deployment instructions.
+
+## Network scripts
+
+`assets/network-config.js` (both networks' values) and `assets/eez-network.js` (the Testnet | Mainnet switch and warnings) load on every page as `?v=<first 8 characters of the file's sha1>`, so readers get a changed file right away instead of a cached copy. After editing either file, update the versions and let `audit.sh` confirm:
+
+```bash
+python3 - <<'PY'
+import hashlib, re, subprocess
+ver = {f: hashlib.sha1(open("assets/" + f, "rb").read()).hexdigest()[:8] for f in ["network-config.js", "eez-network.js"]}
+for page in subprocess.check_output(["git", "ls-files", "*.html"]).decode().split():
+    s = open(page).read(); o = s
+    for name, v in ver.items():
+        s = re.sub(r'(src="(?:\.\./)?assets/' + re.escape(name) + r')(\?v=[0-9a-f]+)?"', r"\1?v=" + v + '"', s)
+    if s != o: open(page, "w").write(s)
+PY
+```
