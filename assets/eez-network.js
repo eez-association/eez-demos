@@ -53,16 +53,16 @@
   document.head.appendChild(style);
 
   var ICON = '<svg width="16" height="16" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 1.5 17 16H1z" fill="none" stroke="#f2b84b" stroke-width="1.5" stroke-linejoin="round"/><path d="M9 7v4" stroke="#f2b84b" stroke-width="1.6" stroke-linecap="round"/><circle cx="9" cy="13.2" r=".95" fill="#f2b84b"/></svg>';
-  var WARNING = "<b>Devnet on Ethereum mainnet.</b> We may reset or change it without notice. Please start with small amounts. Funds here aren't protected like on a production network.";
+  var WARNING = "<b>Devnet on Ethereum mainnet.</b> We may reset or change it without notice. Please start with small amounts.";
   var BIG_ICON = ICON.replace('width="16" height="16"', 'width="24" height="24"');
   var TEST_ICON = '<svg width="24" height="24" viewBox="0 0 26 26" aria-hidden="true"><circle cx="13" cy="13" r="11" fill="none" stroke="#3BE57E" stroke-width="1.6"/><path d="M8 13.4l3.3 3.2L18 9.8" fill="none" stroke="#3BE57E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   var CARD = {
     testnet: { t: "You're on EEZ-X Testnet.", m: "Every live step uses free test funds from a faucet. Mainnet is a devnet on Ethereum mainnet that spends real ETH; use the switch at the top only when you're ready." },
-    mainnet: { t: "You're on RollupX, a devnet on Ethereum mainnet.", m: "We may reset or change it without notice, and every live step spends real ETH. Please start with small amounts. Funds here aren't protected like on a production network." }
+    mainnet: { t: "You're on RollupX, a devnet on Ethereum mainnet.", m: "We may reset or change it without notice, and every live step spends real ETH. Please start with small amounts." }
   };
   var BAND = {
     testnet: { k: "TESTNET", m: "EEZ-X Testnet on Gnosis Chiado. Live steps use free test funds." },
-    mainnet: { k: "MAINNET · DEVNET", m: "It may be reset without notice. Please start with small amounts. Funds here aren't protected like on a production network." }
+    mainnet: { k: "MAINNET · DEVNET", m: "It may be reset without notice. Please start with small amounts." }
   };
 
   function go(name){
