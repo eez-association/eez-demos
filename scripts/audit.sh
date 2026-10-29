@@ -157,6 +157,19 @@ if [ "${PIPESTATUS[0]}" -ne 0 ]; then
   FAIL=1
 fi
 
+echo "== Network scripts carry their current version =="
+# Pages load the network scripts as assets/<file>?v=<first 8 of its sha1>, so a
+# changed script is fetched fresh instead of served from a 10-minute browser cache.
+for js in network-config.js eez-network.js; do
+  v=$(shasum -a 1 "assets/$js" | cut -c1-8)
+  for f in "${HTML_FILES[@]}"; do
+    if grep -q "assets/$js" "$f" && ! grep -q "assets/$js?v=$v\"" "$f"; then
+      echo "  STALE: $f loads assets/$js without ?v=$v (re-run the bump in CONTRIBUTING.md)"
+      FAIL=1
+    fi
+  done
+done
+
 echo
 if [ "$FAIL" -eq 0 ]; then
   echo "Structural audit passed."

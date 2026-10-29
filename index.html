@@ -15,7 +15,7 @@
 <meta property="og:image:alt" content="EEZ Quickstarts">
 <meta name="twitter:card" content="summary_large_image">
 <!-- /og -->
-<meta name="description" content="24 animated walkthroughs of how EEZ actually works — for dapp developers, rollup operators, and protocol researchers.">
+<meta name="description" content="25 animated walkthroughs of how EEZ actually works — for dapp developers, rollup operators, and protocol researchers.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="alternate" type="text/markdown" href="llms.txt" title="llms.txt — agent-readable index">
 <link rel="alternate" type="text/markdown" href="llms-full.txt" title="llms-full.txt — every walkthrough inlined">
@@ -156,13 +156,13 @@ h1 .l{font-weight:300;color:#dcdcdc}
   <div class="search-filter-wrap">
     <div class="search-box-row">
       <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-      <input id="searchInput" class="search-input" type="text" placeholder="Search 24 walkthroughs…" aria-label="Search 24 walkthroughs, for example msg.sender, Kurtosis, deriver, CREATE2" aria-describedby="searchStatus">
+      <input id="searchInput" class="search-input" type="text" placeholder="Search 25 walkthroughs…" aria-label="Search 25 walkthroughs, for example msg.sender, Kurtosis, deriver, CREATE2" aria-describedby="searchStatus">
       <button id="searchClear" class="search-clear" type="button" aria-label="Clear search" title="Clear search">×</button>
       <span class="search-shortcut">/</span>
     </div>
     <div class="filter-tabs">
-      <button class="filter-btn active" aria-pressed="true" data-filter="all">ALL (24)</button>
-      <button class="filter-btn" aria-pressed="false" data-filter="dapp-developers">DAPP DEVELOPERS (14)</button>
+      <button class="filter-btn active" aria-pressed="true" data-filter="all">ALL (25)</button>
+      <button class="filter-btn" aria-pressed="false" data-filter="dapp-developers">DAPP DEVELOPERS (15)</button>
       <button class="filter-btn" aria-pressed="false" data-filter="rollup-operators">ROLLUP OPERATORS (4)</button>
       <button class="filter-btn" aria-pressed="false" data-filter="protocol-researchers">PROTOCOL RESEARCHERS (6)</button>
     </div>
@@ -377,17 +377,17 @@ h1 .l{font-weight:300;color:#dcdcdc}
   </section>
 
   <footer class="closer">
-    <span class="closer-label">THAT'S ALL 24 — MORE WILL BE ADDED AS THE PROTOCOL GROWS</span>
+    <span class="closer-label">THAT'S ALL 25 — MORE WILL BE ADDED AS THE PROTOCOL GROWS</span>
     <div class="closer-links">
       <a href="https://github.com/eez-association/eez-core-protocol">Star eez-core-protocol ↗</a>
       <a href="https://github.com/eez-association/eez-demos/blob/main/CONTRIBUTING.md">Suggest a demo ↗</a>
-      <a href="llms.txt" title="Agent-readable index of all 24 walkthroughs, their code and their citations">llms.txt ↗</a>
+      <a href="llms.txt" title="Agent-readable index of all 25 walkthroughs, their code and their citations">llms.txt ↗</a>
     </div>
   </footer>
 
 </div>
-<script src="assets/network-config.js"></script>
-<script src="assets/eez-network.js" defer></script>
+<script src="assets/network-config.js?v=0a94304d"></script>
+<script src="assets/eez-network.js?v=503e4b22" defer></script>
 <script src="assets/eez-tour.js"></script>
 <script>
 (function(){
@@ -491,7 +491,7 @@ h1 .l{font-weight:300;color:#dcdcdc}
       }
       searchStatus.textContent = narrowed ? label : "";
     }
-    // "That's all 24" is a total, not a filtered count; hide it while a
+    // "That's all 25" is a total, not a filtered count; hide it while a
     // query/filter is active so it cannot read as the visible result count.
     var closer = document.querySelector(".closer");
     if (closer) { closer.style.display = narrowed ? "none" : ""; }
