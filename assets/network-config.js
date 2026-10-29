@@ -76,12 +76,21 @@ window.EEZ_NETWORKS = {
 
 // Pick the network: ?net=testnet|mainnet in the URL (so a shared link carries it),
 // else the reader's last choice, else testnet. Only the two known names are accepted.
+// The landing page loads this script with data-start-testnet: without ?net= it always
+// opens on testnet and resets the remembered choice, so a visit starts there.
 (function(){
   var KEY = "eez-network", pick = null;
+  var me = document.currentScript;
+  var startTestnet = !!(me && me.hasAttribute("data-start-testnet"));
   try { pick = new URLSearchParams(location.search).get("net"); } catch (e) {}
   if (pick !== "testnet" && pick !== "mainnet") {
     pick = null;
-    try { pick = localStorage.getItem(KEY); } catch (e) {}
+    if (startTestnet) {
+      pick = "testnet";
+      try { localStorage.setItem(KEY, pick); } catch (e) {}
+    } else {
+      try { pick = localStorage.getItem(KEY); } catch (e) {}
+    }
     if (pick !== "testnet" && pick !== "mainnet") pick = "testnet";
   } else {
     try { localStorage.setItem(KEY, pick); } catch (e) {}
