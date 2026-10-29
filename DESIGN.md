@@ -157,7 +157,7 @@ There are two surfaces. The **index** (`index.html`, `start-here.html`, `deploy.
 - Geist for prose and Geist Mono for labels, numbers, eyebrows and code.
 - One green signal (`eez-green`) for live state and focus. The gradient is reserved for the primary action and hover accents.
 - Pill-shaped controls, cards with 16px corners, and small 4–5px chips for tool buttons and byte cells.
-- Every walkthrough names the commit it was verified against, in the intro's verified-against line. No page carries a PRE-MAINNET label: RollupX is live on Ethereum mainnet (owner decision, 2026-10-22).
+- Every walkthrough names the commit it was verified against, in the intro's verified-against line. No page carries a PRE-MAINNET label (owner decision, 2026-10-22). The network switch (testnet default) is the only network chrome; with mainnet picked, an amber devnet warning sits under the header (owner decision, 2026-10-29).
 
 ## Colors
 

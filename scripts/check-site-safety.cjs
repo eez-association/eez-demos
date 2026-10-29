@@ -68,7 +68,7 @@ async function open(browser, file, options = {}) {
       writeText: async (text) => { if (window.rejectCopy) { throw new Error("Denied"); } window.copied.push(text); },
     } });
   }, !!options.clipboardMissing);
-  await page.goto(base + file + (options.hostileURL ? "?q=" + encodeURIComponent(payload) + "#step-" + encodeURIComponent(payload) : ""), { waitUntil: "load" });
+  await page.goto(base + file + (options.query || "") + (options.hostileURL ? "?q=" + encodeURIComponent(payload) + "#step-" + encodeURIComponent(payload) : ""), { waitUntil: "load" });
   return { page, state };
 }
 
@@ -103,8 +103,9 @@ async function browsing(browser) {
   console.log(`Browsing boundaries pass for ${pages.length} pages, including hostile URL/search/calculator inputs.`);
 }
 
-async function deployment(browser) {
-  const { page, state } = await open(browser, "deploy.html");
+async function deployment(browser, net) {
+  const { page, state } = await open(browser, "deploy.html", net === "mainnet" ? { query: "?net=mainnet" } : {});
+  const want = net === "mainnet" ? { chain: "696991", account: "eez-mainnet" } : { chain: "699169", account: "eez-testnet" };
   assert.equal(await page.$eval("#broadcastChoice", (el) => el.open), false);
   const copy = await page.$$("[data-copy-pre]");
   for (const button of copy) {
@@ -112,25 +113,29 @@ async function deployment(browser) {
     await button.click();
   }
   const before = await page.evaluate(() => window.copied);
-  assert.ok(before.some((text) => text.includes("forge create") && text.includes('--chain-id 696991')));
+  assert.ok(before.some((text) => text.includes("forge create") && text.includes("--chain-id " + want.chain)));
   assert.ok(before.every((text) => !text.includes("--broadcast")), "Default copy path must not send a transaction");
   await page.click("#broadcastChoice summary");
   await page.click("#broadcastChoice [data-copy-pre]");
   const broadcast = await page.evaluate(() => window.copied.at(-1));
-  assert.ok(broadcast.includes('test "$(cast chain-id --rpc-url "$EEZ_RPC")" = "696991" &&'));
-  assert.ok(broadcast.includes("--chain-id 696991") && broadcast.includes("--account eez-mainnet --broadcast"));
+  assert.ok(broadcast.includes('test "$(cast chain-id --rpc-url "$EEZ_RPC")" = "' + want.chain + '" &&'));
+  assert.ok(broadcast.includes("--chain-id " + want.chain) && broadcast.includes("--account " + want.account + " --broadcast"));
   assert.ok(!broadcast.includes("--private-key") && !broadcast.includes("--password"));
   assert.ok(!broadcast.includes("$ forge"));
-  const text = await page.$eval("body", (body) => body.textContent);
-  assert.ok(text.includes("mainnet playground") && text.includes("real ETH"));
+  const text = await page.$eval("body", (body) => body.innerText);
+  if (net === "mainnet") {
+    assert.ok(text.includes("Devnet on Ethereum mainnet") && text.includes("real ETH") && text.includes("willing to lose"));
+  } else {
+    assert.ok(text.includes("You're on EEZ-X Testnet") && !text.includes("Devnet on Ethereum mainnet"));
+  }
   assert.ok(!/demo app on the testnet|PRE-MAINNET|pre-mainnet \(test network\)/.test(text));
   await clean(page, state);
-  console.log("Deployment COPY previews first and keeps real-ETH broadcast explicit and chain-bound.");
+  console.log("Deployment COPY (" + net + ") previews first and keeps the broadcast explicit and chain-bound.");
 }
 
 async function main() {
   const browser = await puppeteer.launch(); // Chromium's sandbox stays enabled.
-  try { await browsing(browser); await deployment(browser); }
+  try { await browsing(browser); await deployment(browser, "testnet"); await deployment(browser, "mainnet"); }
   finally { await browser.close(); }
 }
 main().catch((error) => { console.error(error); process.exitCode = 1; });

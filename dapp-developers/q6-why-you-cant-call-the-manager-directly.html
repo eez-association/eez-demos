@@ -313,6 +313,8 @@
 </div>
 
 <noscript><p style="max-width:640px;margin:24px auto;padding:0 16px;font-family:system-ui,sans-serif;font-size:16px;line-height:1.6;color:#c9cfda">This walkthrough builds its panels with JavaScript. Without it, read every walkthrough as text in <a href="../llms-full.txt">llms-full.txt</a>, or open the <a href="../llms.txt">index</a>.</p></noscript>
+<script src="../assets/network-config.js"></script>
+<script src="../assets/eez-network.js" defer></script>
 <script src="../assets/eez-tour.js"></script>
 <script src="../assets/eez-steps.js" defer></script>
 <script>
@@ -324,7 +326,7 @@
   var captions = [
     "Anyone can try calling the manager's entry point directly.",
     "It reverts — UnauthorizedProxy(). Only a real proxy gets through.",
-    "Both proxy entry points open with this check. It checks who is calling, not where the call goes: at 9a1f815 a second check, EEZDestinationForbidden (EEZBase.sol:404), also stops a cross-chain call from targeting the manager itself. The RollupX mainnet deployment (84a5b52) includes that check."
+    "Both proxy entry points open with this check. It checks who is calling, not where the call goes: at 9a1f815 a second check, EEZDestinationForbidden (EEZBase.sol:404), also stops a cross-chain call from targeting the manager itself. Both live networks run 84a5b52, which includes that check."
   ];
   var notes = [
     "",

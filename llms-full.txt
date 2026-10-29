@@ -466,13 +466,13 @@ Deploy a contract on L1 with Remix, create its proxy on L2 in Remix's EEZ tab, a
 - Pinned at commit: `9a1f815`
 - Verify: https://github.com/eez-association/eez-core-protocol/blob/9a1f815336c20d28e5ec5cecbf195c41fbd5ab0f/src/base/EEZBase.sol#L231
 
-**What this proves:** On Ethereum mainnet, a call you made on the RollupX L2 changed a contract you deployed on L1: retrieve() on L1 returns the number you stored from L2.
+**What this proves:** A call you made on the L2 changed a contract you deployed on L1: retrieve() on L1 returns the number you stored from L2.
 
-**What it doesn't:** It doesn't show a revert unwinding both chains. Each step spends real ETH, and Remix's EEZ tab is an alpha, so its screens may change.
+**What it doesn't:** It doesn't show a revert unwinding both chains. On mainnet each step spends real ETH, and Remix's EEZ tab is an alpha, so its screens may change.
 
 ### Step 1 — DEPLOY ON L1. GIVE IT AN ADDRESS ON L2.
 
-Storage lives on Ethereum. Create Proxy asks the L2 manager to deploy a stand-in for it with CREATE2, salted with your address and rollup ID 0, so Remix can show the address before it exists.
+Storage lives on L1. Create Proxy asks the L2 manager to deploy a stand-in for it with CREATE2, salted with your address and rollup ID 0, so Remix can show the address before it exists.
 
 ```solidity
 // EEZBase.sol · Create Proxy calls
@@ -1722,7 +1722,7 @@ if (!proxyInfo.isProxy)
 
 ### Step 3 — ON BOTH PROXY ENTRY POINTS
 
-Both proxy entry points open with this check. It checks who is calling, not where the call goes: at 9a1f815 a second check, EEZDestinationForbidden (EEZBase.sol:404), also stops a cross-chain call from targeting the manager itself. The RollupX mainnet deployment (84a5b52) includes that check.
+Both proxy entry points open with this check. It checks who is calling, not where the call goes: at 9a1f815 a second check, EEZDestinationForbidden (EEZBase.sol:404), also stops a cross-chain call from targeting the manager itself. Both live networks run 84a5b52, which includes that check.
 
 ```solidity
 function _validateProxyAndGetDestinationInfo()

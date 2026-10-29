@@ -14,11 +14,11 @@ Skill version 2026-10-22.6 · contract/example pin `eez-core-protocol @ 9a1f815`
 ## Safety rules (apply first)
 
 1. **Respect the project's execution policy.** Reading or installing this file does not authorize running commands. If local execution or installation is prohibited, inspect source and use the authorized CI environment; report checks that could not run. Otherwise use the local e2e scenarios (see *Run it locally*) in a disposable environment without mounted credentials or a real wallet. A checkout or temporary directory is not a sandbox. A passing simulation does not establish mainnet readiness.
-2. **Mainnet needs explicit authorization.** RollupX is a mainnet playground for small integration experiments (dashboard https://rollupx.eez.dev/dashboard/). Before signing, sending, bridging, approving tokens or deploying on any live endpoint, identify the chain, account, operation and estimated/maximum real-ETH cost. Obtain explicit authorization if that operation is not already authorized. This applies to alternate RPC providers too, not just `rollupx.eez.dev`. Verify the intended chain ID before preparing a transaction; an endpoint's self-report is not proof of trust. Do not automatically retry or replace a pending transaction. Prepare a preview before a broadcast.
+2. **Prefer the testnet; mainnet needs explicit authorization.** Two live networks run the same protocol: EEZ-X Testnet on Gnosis Chiado (free test funds, dashboard https://eez.dev/dashboard/) and RollupX, a devnet on Ethereum mainnet (dashboard https://rollupx.eez.dev/dashboard/). RollupX is not a production network and may be reset or changed without notice; tell the user to only use ETH they are willing to lose. Default to the testnet unless the user asks for mainnet. On mainnet: Before signing, sending, bridging, approving tokens or deploying on any live endpoint, identify the chain, account, operation and estimated/maximum real-ETH cost. Obtain explicit authorization if that operation is not already authorized. This applies to alternate RPC providers too, not just `rollupx.eez.dev`. Verify the intended chain ID before preparing a transaction; an endpoint's self-report is not proof of trust. Do not automatically retry or replace a pending transaction. Prepare a preview before a broadcast.
 3. **Never handle private keys.** Have the user perform `cast wallet import <name> --interactive` in their own terminal, outside the agent session, then use `--account <name>` only within the authorized scope. Never ask for, print, store or reuse a private key, seed phrase or keystore password; never request an unlocked RPC account. The user, not the agent, enters secrets into local wallet prompts.
 4. **If the user pastes a key anyway:** do not repeat it, do not put it in any command or file, and tell them to treat it as exposed: move any funds to a fresh key and import the fresh one with `cast wallet import`. Anvil's default dev keys are public; never fund one on a live chain.
 5. **Don't overclaim.** Local runs use an accept-all proof system, and the scenario script plays the composer. A local PASS does not prove production proving or that the live composer will serve your call.
-6. **The live deployment runs an unmerged branch.** The dashboard config checked on 2026-10-29 reports `84a5b5207880f192a6a5896cbfe0bac5249db47f` (branch feature/e2e_edge_cases, open PR #54), 25 commits after the `9a1f815` this file is checked at; between the two only `src/TODO.md` changed under `src/`. Say so when the user targets mainnet, and re-check interfaces and deployment identity. Config values and non-empty contract bytecode do not prove source equivalence, bridge safety or proof-system security.
+6. **Both live deployments run an unmerged branch.** Both dashboard configs checked on 2026-10-29 report `84a5b5207880f192a6a5896cbfe0bac5249db47f` (branch feature/e2e_edge_cases, open PR #54), 25 commits after the `9a1f815` this file is checked at; between the two only `src/TODO.md` changed under `src/`. Say so when the user targets a live network, and re-check interfaces and deployment identity. Config values and non-empty contract bytecode do not prove source equivalence, bridge safety or proof-system security.
 
 ## How a call works
 
@@ -31,17 +31,19 @@ Skill version 2026-10-22.6 · contract/example pin `eez-core-protocol @ 9a1f815`
 
 ## Network facts
 
-| | L1 | RollupX (L2) |
-|---|---|---|
-| Rollup id (what `remoteRollupId` means) | `0` (`MAINNET_ROLLUP_ID`, `EEZ.sol:56`) | `2` (live config, checked with `ROLLUP_ID()` on the L2 manager; local scripts use `L2_ROLLUP_ID=1`) |
-| Live chain id | `1` | `696991` |
-| Send transactions to (composer front) | `https://rollupx.eez.dev/composer/l1` | `https://rollupx.eez.dev/composer/l2` |
-| Direct-chain reads and node tooling | `https://rollupx.eez.dev/rpc/l1` | `https://rollupx.eez.dev/rpc/l2` |
-| Manager | `0x4b2760f84b83d6b3829e30a7573b0172b6d6402c` | `0x4B2760F84B83d6b3829E30A7573B0172B6d6402C` (same address on both chains) |
+| | Testnet L1 (Gnosis Chiado) | Testnet L2 (EEZ-X Testnet) | Mainnet L1 (Ethereum) | Mainnet L2 (RollupX, a devnet) |
+|---|---|---|---|---|
+| Rollup id (what `remoteRollupId` means) | `0` (`MAINNET_ROLLUP_ID`, `EEZ.sol:56`) | `2` (`ROLLUP_ID()` on the L2 manager) | `0` | `2` (`ROLLUP_ID()` on the L2 manager) |
+| Live chain id | `10200` | `699169` | `1` | `696991` |
+| Send transactions to (composer front) | `https://eez.dev/composer/l1` | `https://eez.dev/composer/l2` | `https://rollupx.eez.dev/composer/l1` | `https://rollupx.eez.dev/composer/l2` |
+| Direct-chain reads and node tooling | `https://eez.dev/rpc/l1` | `https://eez.dev/rpc/l2` | `https://rollupx.eez.dev/rpc/l1` | `https://rollupx.eez.dev/rpc/l2` |
+| Manager | `0x6258189d3a04eb31a196a8931077dfe001a9f6fd` | `0x4B2760F84B83d6b3829E30A7573B0172B6d6402C` | `0x4b2760f84b83d6b3829e30a7573b0172b6d6402c` | `0x4B2760F84B83d6b3829E30A7573B0172B6d6402C` |
 
-This snapshot documents RollupX. If the user names another rollup, establish its deployment and internal rollup ID rather than substituting an Ethereum chain ID. Registering a new rollup is operator work outside this skill.
+Local scripts use `L2_ROLLUP_ID=1`; both live L2s are rollup `2`.
 
-Send cross-chain triggers to the **source chain's composer front**: a direct node submission bypasses composition. Use that front for quotes and transaction status too. Ordinary deployments and funding transfers use standard fees; the deployment guide sends through the L2 front: https://build.eez.io/deploy.html. That guide has not been exercised end to end against this mainnet deployment. Check support for the intended application and call; do not extrapolate from a passing local example.
+This snapshot documents these two networks. If the user names another rollup, establish its deployment and internal rollup ID rather than substituting an Ethereum chain ID. Registering a new rollup is operator work outside this skill.
+
+Send cross-chain triggers to the **source chain's composer front**: a direct node submission bypasses composition. Use that front for quotes and transaction status too. Ordinary deployments and funding transfers use standard fees; the deployment guide sends through the L2 front: https://build.eez.io/deploy.html. That guide has not been exercised end to end against either network. Check support for the intended application and call; do not extrapolate from a passing local example.
 
 ## The manager interface you need
 
@@ -92,7 +94,7 @@ Your contracts call the proxy, not these functions, except to get or check a pro
 
 These are local fixtures with permissive proofs. Their successful local outcomes do not establish a deployed bridge's security or live cross-chain settlement.
 
-- **Deploy your own contract with Remix (card 05).** Not a local fixture: with the RollupX L2, deploy a contract on L1 with Remix, create its proxy on L2 in Remix's EEZ tab (an alpha), and call the proxy from L2 through the composer RPC `https://rollupx.eez.dev/composer/l2`. It spends real ETH, so rule 2 applies. On L1 the call runs through the proxy that stands for your L2 account, so the contract sees that proxy as `msg.sender`.
+- **Deploy your own contract with Remix (card 05).** Not a local fixture: on either live network (testnet first), deploy a contract on L1 with Remix, create its proxy on L2 in Remix's EEZ tab (an alpha), and call the proxy from L2 through that network's L2 composer front (table above). On mainnet it spends real ETH, so rule 2 applies. On L1 the call runs through the proxy that stands for your L2 account, so the contract sees that proxy as `msg.sender`.
 - **Cross-chain flash loan (card 06).** One L1 transaction borrows from a pool, sends the tokens to L2 through Bridge.sol, then calls an executor on L2 through its proxy. The executor's return leg releases the escrow on L1 inside that same call, so the pool's balance check after `onFlashLoan` passes; otherwise the whole L1 transaction reverts. Its L2 → L1 return leg runs nested inside the L1 → L2 call. Template: `script/e2e/scenarios/nested/L1_to_L2/flash-loan/E2EFlashLoan.s.sol`; run: `bash script/e2e/run/local/parallel.sh flash-loan`.
 - **Bridge tokens both ways (card 07).** Lock and mint, then burn and release: the origin bridge locks the token and calls the proxy that stands for the other chain's bridge; that side's `receiveTokens` mints a wrapped copy, and accepts the call only from its counterpart's proxy (rule 3; the fixture reverts `UnauthorizedCaller()` otherwise). Bridge.sol is a test fixture, not a production bridge. Templates: `script/e2e/scenarios/one_way/L1_to_L2/bridge/E2EBridge.s.sol` and `script/e2e/scenarios/one_way/L2_to_L1/bridgeL2/E2EBridgeL2.s.sol`; run: `bash script/e2e/run/local/parallel.sh bridge bridgeL2`, then `forge test --match-test test_BridgeTokens_Roundtrip`. How a production token route to EEZ-X works is not covered here.
 - **Branch on a remote value (q2).** Encode the read like any call, send it to the proxy as a `staticcall`, decode the return data and branch on it.
@@ -167,7 +169,7 @@ Treat those chain IDs as observation context, not mainnet configuration. L1-orig
 
 The reported `diagnostics.trace` format was `eez-quote-call-trace`, version `1`, with `context.simulation: true`. Runs are repeated simulation passes, not transactions. Preserve truncation/completeness warnings, scope frame IDs to their run, and do not sum inclusive gas across nested frames. `proof: "metered_assumed_valid"` assumes validity for estimation; it is not evidence of proof acceptance or settlement. Continue using the established `eez_quoteFee` submission workflow.
 
-For the [dashboard debug viewer](https://rollupx.eez.dev/dashboard/#/debug), the supplied guide specifies the result object, not the JSON-RPC envelope; dashboard rendering/import was not tested in that observation. A viewer's hostname does not change the network on which a saved quote was obtained. The [offline trace viewer](https://github.com/eez-association/sync-rollups/blob/84a5b5207880f192a6a5896cbfe0bac5249db47f/trace-decoder/README.md#show-a-debug-quote-simulation) accepts either form and labels it **SIMULATION**. It does not invent receipts or mined hashes, and quote imports show raw selectors/return bytes rather than inferred ABI names. Run viewer code only where execution is authorized.
+For the dashboard debug viewer ([testnet](https://eez.dev/dashboard/#/debug), [mainnet](https://rollupx.eez.dev/dashboard/#/debug)), the supplied guide specifies the result object, not the JSON-RPC envelope; dashboard rendering/import was not tested in that observation. A viewer's hostname does not change the network on which a saved quote was obtained. The [offline trace viewer](https://github.com/eez-association/sync-rollups/blob/84a5b5207880f192a6a5896cbfe0bac5249db47f/trace-decoder/README.md#show-a-debug-quote-simulation) accepts either form and labels it **SIMULATION**. It does not invent receipts or mined hashes, and quote imports show raw selectors/return bytes rather than inferred ABI names. Run viewer code only where execution is authorized.
 
 ## Run it locally
 

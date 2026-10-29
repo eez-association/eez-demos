@@ -22,14 +22,14 @@ Success means a developer runs a cross-rollup round trip on their own machine, u
 
 It is the EEZ team's official hands-on learning layer and sits between two other surfaces:
 
-- **rollupx.eez.dev** is the live RollupX network on Ethereum mainnet (dashboard: https://rollupx.eez.dev/dashboard/). Every card uses it (owner decision, 2026-10-29); mainnet.eez.dev (L2 696990) is a separate rollup the site no longer links. This site links out to it and doesn't duplicate its flows. eez.dev is the older Chiado testnet.
+- **Two live networks, picked with a site-wide switch (owner decision, 2026-10-29):** EEZ-X Testnet at eez.dev (L1 Gnosis Chiado 10200, L2 699169) is the default and free; RollupX at rollupx.eez.dev (L1 Ethereum 1, L2 696991) is a devnet on Ethereum mainnet. Every page shows a devnet warning while mainnet is picked. Values live in assets/network-config.js; the switch is assets/eez-network.js. mainnet.eez.dev (L2 696990) is a separate rollup the site no longer links. This site links out to it and doesn't duplicate its flows. eez.dev is the older Chiado testnet.
 - **eez-core-protocol `docs/`** is the specification. This site teaches mechanics and cites the spec; it isn't a second spec.
 
 What a neighbor can't truthfully copy: every code panel is verbatim source cited at a pinned `file:line` and commit, checked mechanically in CI. Snippets compile and their Foundry tests pass. Nothing is pseudocode.
 
 ## Operating Context
 
-- Readers move between a walkthrough, their terminal (Foundry v1.7.1, `forge test`, the local e2e runner), the GitHub source the citations link to, and rollupx.eez.dev.
+- Readers move between a walkthrough, their terminal (Foundry v1.7.1, `forge test`, the local e2e runner), the GitHub source the citations link to, and the eez.dev or rollupx.eez.dev dashboard.
 - The offline path (snippets with no forge-std, no submodules, no Docker) has to work on a bare checkout.
 - Agents and LLMs consume the site through `llms.txt` / `llms-full.txt`, because the code panels render from JavaScript at runtime.
 
@@ -39,7 +39,7 @@ What a neighbor can't truthfully copy: every code panel is verbatim source cited
 - **Walkthrough format is fixed** (CONTRIBUTING.md): a 1920×1080 stage (diagram, code, caption, Prev/Play/Next), progressive `codeByStep` reveal, real data in diagrams, the `NEXT:` link chain, and the `scaleStage()` mobile floor. `pr5` is the template, and `scripts/new-demo.sh` scaffolds new pages from it.
 - **Card format:** an action-oriented title and a one-sentence hook that states the consequence, not the mechanism. No code on cards.
 - **Sources:** contracts come from `eez-core-protocol` and infra from `eez-rollupX`, both pinned by SHA. Pinned commits drift from upstream `main`, so check against the pin.
-- **Network facts:** RollupX runs on Ethereum mainnet (L1 chain 1, L2 chain 696991, rollup ID 2, protocol 84a5b52 on the unmerged feature/e2e_edge_cases branch; no Solidity change from the 9a1f815 pin). The Chiado testnet (L2 chain 699169, by `eth_chainId` on 2026-10-29) is at eez.dev. The proof system in public source is dev-grade ECDSA (threshold 1), not production ZK, and `USE_GAS_LEFT` is off in every current deployment.
+- **Network facts:** Both live networks run protocol 84a5b52 (unmerged feature/e2e_edge_cases branch; no Solidity change from the 9a1f815 pin) and rollup ID 2. EEZ-X Testnet: L1 10200, L2 699169. RollupX: L1 1, L2 696991. The proof system in public source is dev-grade ECDSA (threshold 1), not production ZK, and `USE_GAS_LEFT` is off in every current deployment.
 - **Open decisions:**
   - whether to keep the hero phrase "as naturally as a same-chain call";
   - the unmeasured "DEPLOY A CONTRACT · ~15 MIN" pill;
@@ -49,7 +49,7 @@ What a neighbor can't truthfully copy: every code panel is verbatim source cited
 ## Brand Commitments
 
 - Branded as EEZ (Ethereum Economic Zone), with the EEZ logo, under the title "EEZ Quickstarts".
-- **Every walkthrough says which commit it was verified against**: the intro slide's "Verified against … ; interfaces may move." line. RollupX is live on Ethereum mainnet, so no page carries a PRE-MAINNET label (owner decision, 2026-10-22).
+- **Every walkthrough says which commit it was verified against**: the intro slide's "Verified against … ; interfaces may move." line. No page carries a PRE-MAINNET label (owner decision, 2026-10-22). Instead, while the reader has mainnet picked, every page shows the devnet warning: RollupX is a devnet on Ethereum mainnet, not a production network, may be reset, and only ETH the reader is willing to lose belongs there (owner decision, 2026-10-29).
 - **Honesty rules (binding):**
   - no card or caption implies something works, or takes less time, than it does;
   - stated timings name the hardware they were measured on;
