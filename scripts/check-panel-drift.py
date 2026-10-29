@@ -86,6 +86,7 @@ EXCERPT_CHECKED = {
     "qs2-read-your-side-of-it.html": "upstream excerpt steps, check-excerpts.py; FULL/TEST still checked here via SNIPPET_MAP",
     "qs3-who-answered.html": "upstream excerpt, check-excerpts.py",
     "qs5-three-gotchas-before-you-build.html": "upstream excerpt, check-excerpts.py",
+    "qs6-deploy-your-own-contract.html": "upstream excerpt, check-excerpts.py",
     "qs7-cross-chain-flash-loan.html": "shell step + upstream excerpts, run-quickstart.sh + check-excerpts.py",
     "qs8-bridge-tokens-both-ways.html": "shell step + upstream excerpts, run-quickstart.sh + check-excerpts.py",
 }

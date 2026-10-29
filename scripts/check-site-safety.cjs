@@ -112,13 +112,13 @@ async function deployment(browser) {
     await button.click();
   }
   const before = await page.evaluate(() => window.copied);
-  assert.ok(before.some((text) => text.includes("forge create") && text.includes('--chain-id 696990')));
+  assert.ok(before.some((text) => text.includes("forge create") && text.includes('--chain-id 696991')));
   assert.ok(before.every((text) => !text.includes("--broadcast")), "Default copy path must not send a transaction");
   await page.click("#broadcastChoice summary");
   await page.click("#broadcastChoice [data-copy-pre]");
   const broadcast = await page.evaluate(() => window.copied.at(-1));
-  assert.ok(broadcast.includes('test "$(cast chain-id --rpc-url "$EEZ_RPC")" = "696990" &&'));
-  assert.ok(broadcast.includes("--chain-id 696990") && broadcast.includes("--account eez-mainnet --broadcast"));
+  assert.ok(broadcast.includes('test "$(cast chain-id --rpc-url "$EEZ_RPC")" = "696991" &&'));
+  assert.ok(broadcast.includes("--chain-id 696991") && broadcast.includes("--account eez-mainnet --broadcast"));
   assert.ok(!broadcast.includes("--private-key") && !broadcast.includes("--password"));
   assert.ok(!broadcast.includes("$ forge"));
   const text = await page.$eval("body", (body) => body.textContent);

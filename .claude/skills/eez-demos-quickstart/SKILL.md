@@ -61,7 +61,7 @@ Every command a card shows has been executed, and the output it shows came from 
   - Locally the script also *predicts* the L2 result: `DeployL2` runs the real staticcall and exports `PREDICTED_STATIC_RESULT` (`:111-120`), the way a composer predicts it off-chain. Say so; don't imply L2 answered live.
   - The entry is pinned to L2's live root, so a no-tx `eth_call` read stays valid only until the next transaction moves that root.
   - The L1 trigger still writes: the reader stores what it read (`lastRead`). Only the no-tx `eth_call` is write-free, so "read without writing" holds for that path alone.
-- Only a card that runs on a real network (qs6, still a stub) may say *build* or *deploy*. Say "composer", never "sequencer", for who builds entries.
+- Only a card that runs on a real network (qs6, on Ethereum mainnet via rollupx.eez.dev) may say *build* or *deploy*. Say "composer", never "sequencer", for who builds entries.
 
 ## 5. Excerpts
 
@@ -87,8 +87,8 @@ Every code step is one of the following:
 - The qs pages (`dapp-developers/qs0`–`qs8`) and `index.html`'s `#quickstart` section exist. Check that a link target exists before adding it. `audit.sh` fails on a broken link.
 - **Phase:** a card whose main point is a runnable pattern a developer would copy goes under Build patterns. A card that explains what happened goes under See it work.
 - **Index phase strip**: `index.html` `<section class="sec" id="quickstart">` has four rows: Understand, See it work, Make it real, Build patterns. Each card is an `<a class="card" href="dapp-developers/<page>">` with a `card-title` and a `card-hook`. `build-llms.py` takes titles, hooks and page order from these anchors. The hook states a consequence (CONTRIBUTING "Format").
-- **Stub** (qs6): modelled on `dapp-developers/q1-compute-your-cross-chain-address.html` without its meta refresh. It has the title, "Coming soon", one sentence on what the card will show (deploying and calling your own contract with the Remix cross-chain plugin), a link to `../index.html#quickstart`. Its index card keeps the `COMING SOON` badge. qs4 (real composer on a local devnet) was removed, and the phase strip is numbered 00–07 without a gap; slugs keep their `qsN` names. Leave out `codeByStep` and captions, so `build-llms.py` and panel-drift skip the stub.
-- Adding or removing a walkthrough means bumping the `EXPECTED_WALKTHROUGHS` constant in `scripts/build-llms.py` (24 now) in the same change, or `build-llms.py --check` fails. Stubs without captions don't count. `start-here.html` names the count in words; keep it in step.
+- **Network card** (qs6): the one card that runs on a real network (Ethereum mainnet with the rollupX L2, rollupx.eez.dev, chain 696991) through Remix's EEZ tab and MetaMask, so it has no shell steps and no `run-quickstart.sh` gate. Clicks go in the diagram's click list, the panel shows the upstream code each click runs (registered in `EXCERPTS`), and the intro's BEFORE YOU START box carries the network values. Re-run the flow by hand when Remix or the testnet changes, and drop the Remix Settings → EEZ workaround once Remix builds the rollupX composers in.
+- Adding or removing a walkthrough means bumping the `EXPECTED_WALKTHROUGHS` constant in `scripts/build-llms.py` (25 now) in the same change, or `build-llms.py --check` fails. Stubs without captions don't count. `start-here.html` names the count in words; keep it in step.
 - Leave `EXPECTED_CARDS` in `scripts/check-manifest.py` alone. It counts manifest task cards, not pages.
 - Kickers are short ALL-CAPS phrases, one per step (`"RUN IT."`, `"BORROW ON L1, USE IT ON L2."`). A hands-on card's step 1 is `RUN IT.` Steps 2–3 are a short imperative or claim that says what the reader learns there (`"REPAID BEFORE THE TRANSACTION ENDS."`, `"ASK IT, DON'T INSPECT IT"`).
 - Regenerate: `python3 scripts/build-llms.py`.

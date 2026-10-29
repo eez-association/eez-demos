@@ -44,6 +44,11 @@ EXCERPTS = {
         0: ["src/base/CrossChainProxy.sol", "src/EEZ.sol"],
         1: ["src/EEZ.sol"],
     },
+    "qs6-deploy-your-own-contract.html": {
+        0: ["src/base/EEZBase.sol"],
+        1: ["src/base/CrossChainProxy.sol"],
+        2: ["src/EEZ.sol"],
+    },
     "qs7-cross-chain-flash-loan.html": {
         1: ["src/periphery/defiMock/FlashLoan.sol", "src/periphery/defiMock/FlashLoanBridgeExecutor.sol"],
         2: ["src/periphery/defiMock/FlashLoan.sol", "src/periphery/defiMock/FlashLoanBridgeExecutor.sol"],
