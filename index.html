@@ -140,12 +140,15 @@ h1 .l{font-weight:300;color:#dcdcdc}
       <img class="brand-mark" src="favicon.svg" alt="EEZ" width="23" height="36">
     </div>
     <nav class="navlinks" aria-label="Repository links">
-      <a href="https://rollupx.eez.dev/dashboard/" target="_blank" rel="noopener">EEZ Dashboard ↗</a>
+      <span data-net-switch></span>
+      <a href="https://eez.dev/dashboard/" data-net-href="dashboard" target="_blank" rel="noopener">EEZ Dashboard ↗</a>
       <a href="https://t.me/+DZ1gBS8jfi40Njdk" target="_blank" rel="noopener">Join EEZ Alliance ↗</a>
       <a href="https://github.com/eez-association/eez-demos/blob/main/CONTRIBUTING.md">Contribute ↗</a>
       <button id="btnHelp" type="button" title="How this page works" aria-label="How this page works" style="width:26px;height:26px;flex:none;background:#141414;border:1px solid #2a2a2a;border-radius:50%;color:var(--muted);font-family:var(--mono);font-size:13px;line-height:1;cursor:pointer;padding:0;">?</button>
       </nav>
   </div>
+
+  <div data-net-banner style="margin:20px 0 28px;max-width:900px"></div>
 
   <h1><span class="w">Learn</span> <span class="l">how EEZ</span><br><span class="w">actually</span> <span class="l">works</span></h1>
   <p class="hero-sub">The Ethereum Economic Zone lets a contract on Ethereum or a rollup call a contract on another chain and use the answer in the same transaction, with no bridge message and no callback. These walkthroughs show how, with real protocol code cited at a pinned commit.</p>
@@ -217,7 +220,7 @@ h1 .l{font-weight:300;color:#dcdcdc}
           <p class="card-hook">Two cross-chain gotchas to check before you build: msg.sender is the source's proxy, and a state-changing proxy call needs an entry verified in the same block.</p>
         </a>
         <a class="card" href="./dapp-developers/qs6-deploy-your-own-contract.html">
-          <div class="card-head"><h4 class="card-title"><span class="card-num">05</span>Deploy Your Own Contract</h4></div>
+          <div class="card-head"><h4 class="card-title"><span class="card-num">05</span>Deploy Your Own Contract with Remix</h4></div>
           <p class="card-hook">Deploy a contract on L1 with Remix, create its proxy on L2 in Remix's EEZ tab, and call it from L2. retrieve() on L1 returns the number you stored.</p>
         </a>
       </div>
@@ -383,6 +386,8 @@ h1 .l{font-weight:300;color:#dcdcdc}
   </footer>
 
 </div>
+<script src="assets/network-config.js"></script>
+<script src="assets/eez-network.js" defer></script>
 <script src="assets/eez-tour.js"></script>
 <script>
 (function(){

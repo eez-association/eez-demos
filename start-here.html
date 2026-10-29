@@ -90,14 +90,18 @@ code{font-family:var(--mono);font-size:.92em;color:#cfcfcf}
 <body>
 <div class="wrap">
 
-  <a class="back" href="./index.html">&larr; Quickstarts</a>
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+    <a class="back" href="./index.html">&larr; Quickstarts</a>
+    <span data-net-switch></span>
+  </div>
+  <div data-net-banner style="margin-top:20px"></div>
 
   <h1>Start here</h1>
   <p class="lede">Twenty-five walkthroughs is a lot to land on. Dapp developers start with the Quickstart, then go deeper in the reference track. Rollup operators and protocol researchers each get a reading order through the walkthroughs that already exist, and the reason each step follows the last.</p>
 
   <!-- ================= DAPP DEVELOPERS ================= -->
   <div class="sec-head"><h2 class="eyebrow">[ DAPP DEVELOPERS ]</h2></div>
-  <p class="sec-note">Start with the Quickstart: eight numbered cards in four phases, from one call across two rollups to patterns you can copy. RollupX is live on Ethereum mainnet: try it on the <a href="https://rollupx.eez.dev/dashboard/" target="_blank" rel="noopener" style="color:#cfcfcf">mainnet dashboard ↗</a>, or point Foundry at it with the <a href="./deploy.html" style="color:#cfcfcf">deploy page</a>.</p>
+  <p class="sec-note">Start with the Quickstart: eight numbered cards in four phases, from one call across two rollups to patterns you can copy. To try it live, pick a network at the top of the page: EEZ-X Testnet is free, and RollupX is a devnet on Ethereum mainnet that spends real ETH. Then open its <a href="https://eez.dev/dashboard/" data-net-href="dashboard" target="_blank" rel="noopener" style="color:#cfcfcf">dashboard ↗</a>, or point Foundry at it with the <a href="./deploy.html" style="color:#cfcfcf">deploy page</a>.</p>
 
   <div class="grid">
     <a class="card" href="./dapp-developers/qs0-one-call-two-rollups.html">
@@ -151,6 +155,8 @@ forge test --match-test test_sameChainCheck_revertsWhenCalledViaProxy -vv  <span
 <span class="c">#   pass</span>
 <span class="c"># then "4 passed, 0 failed". A failing step prints its test output.</span></pre><button class="copyblock" type="button">COPY</button></div>
   </div>
+<script src="assets/network-config.js"></script>
+<script src="assets/eez-network.js" defer></script>
 <script>
 document.querySelectorAll(".copyblock").forEach(function(btn){
   btn.addEventListener("click", function(){
