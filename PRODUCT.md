@@ -49,7 +49,7 @@ What a neighbor can't truthfully copy: every code panel is verbatim source cited
 ## Brand Commitments
 
 - Branded as EEZ (Ethereum Economic Zone), with the EEZ logo, under the title "EEZ Quickstarts".
-- **Every walkthrough says which commit it was verified against**: the intro slide's "Verified against … ; interfaces may move." line. No page carries a PRE-MAINNET label (owner decision, 2026-10-22). Instead, while the reader has mainnet picked, every page shows the devnet warning: RollupX is a devnet on Ethereum mainnet, not a production network, may be reset, and only ETH the reader is willing to lose belongs there (owner decision, 2026-10-29).
+- **Every walkthrough says which commit it was verified against**: the intro slide's "Verified against … ; interfaces may move." line. No page carries a PRE-MAINNET label (owner decision, 2026-10-22). Instead, while the reader has mainnet picked, every page shows the devnet warning: RollupX is a devnet on Ethereum mainnet, not a production network, may be reset, and readers should start with small amounts because funds there aren't protected like on a production network (owner decision, 2026-10-29).
 - **Honesty rules (binding):**
   - no card or caption implies something works, or takes less time, than it does;
   - stated timings name the hardware they were measured on;

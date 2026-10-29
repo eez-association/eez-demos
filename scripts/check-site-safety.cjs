@@ -124,7 +124,7 @@ async function deployment(browser, net) {
   assert.ok(!broadcast.includes("$ forge"));
   const text = await page.$eval("body", (body) => body.innerText);
   if (net === "mainnet") {
-    assert.ok(text.includes("Devnet on Ethereum mainnet") && text.includes("real ETH") && text.includes("willing to lose"));
+    assert.ok(text.includes("Devnet on Ethereum mainnet") && text.includes("real ETH") && text.includes("start with small amounts"));
   } else {
     assert.ok(text.includes("You're on EEZ-X Testnet") && !text.includes("Devnet on Ethereum mainnet"));
   }
