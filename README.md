@@ -3,7 +3,7 @@
 Short, step-by-step walkthroughs of how EEZ works, for dApp developers, rollup operators and protocol researchers. Each one pairs a diagram with real protocol code, cited at a pinned commit.
 
 - **Site:** [build.eez.io](https://build.eez.io)
-- **Live network:** [EEZ-X dashboard](https://mainnet.eez.dev/dashboard/)
+- **Live network:** [RollupX dashboard](https://rollupx.eez.dev/dashboard/)
 - **For agents:** [`llms.txt`](llms.txt) · [`llms-full.txt`](llms-full.txt)
 
 ## Run locally

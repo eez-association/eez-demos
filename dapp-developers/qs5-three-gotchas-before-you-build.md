@@ -52,7 +52,7 @@ revert ExecutionNotInCurrentBlock(rollupId);
 
 ## Next
 
-[Cross-Chain Flash Loan](qs7-cross-chain-flash-loan.md)
+[Deploy Your Own Contract](qs6-deploy-your-own-contract.md)
 
 ---
 

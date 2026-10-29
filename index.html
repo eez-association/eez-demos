@@ -140,7 +140,7 @@ h1 .l{font-weight:300;color:#dcdcdc}
       <img class="brand-mark" src="favicon.svg" alt="EEZ" width="23" height="36">
     </div>
     <nav class="navlinks" aria-label="Repository links">
-      <a href="https://mainnet.eez.dev/dashboard/" target="_blank" rel="noopener">EEZ Dashboard ↗</a>
+      <a href="https://rollupx.eez.dev/dashboard/" target="_blank" rel="noopener">EEZ Dashboard ↗</a>
       <a href="https://t.me/+DZ1gBS8jfi40Njdk" target="_blank" rel="noopener">Join EEZ Alliance ↗</a>
       <a href="https://github.com/eez-association/eez-demos/blob/main/CONTRIBUTING.md">Contribute ↗</a>
       <button id="btnHelp" type="button" title="How this page works" aria-label="How this page works" style="width:26px;height:26px;flex:none;background:#141414;border:1px solid #2a2a2a;border-radius:50%;color:var(--muted);font-family:var(--mono);font-size:13px;line-height:1;cursor:pointer;padding:0;">?</button>
@@ -216,10 +216,10 @@ h1 .l{font-weight:300;color:#dcdcdc}
           <div class="card-head"><h4 class="card-title"><span class="card-num">04</span>Two Gotchas Before You Build</h4></div>
           <p class="card-hook">Two cross-chain gotchas to check before you build: msg.sender is the source's proxy, and a state-changing proxy call needs an entry verified in the same block.</p>
         </a>
-        <div class="card soon">
-          <div class="card-head"><h4 class="card-title">Deploy Your Own Contract</h4><span class="badge">COMING SOON</span></div>
-          <p class="card-hook">Your own contract, deployed and called across chains with the Remix cross-chain plugin. Not part of the numbered sequence until it is released.</p>
-        </div>
+        <a class="card" href="./dapp-developers/qs6-deploy-your-own-contract.html">
+          <div class="card-head"><h4 class="card-title"><span class="card-num">05</span>Deploy Your Own Contract</h4></div>
+          <p class="card-hook">Deploy a contract on L1 with Remix, create its proxy on L2 in Remix's EEZ tab, and call it from L2. retrieve() on L1 returns the number you stored.</p>
+        </a>
       </div>
     </div>
 
@@ -227,11 +227,11 @@ h1 .l{font-weight:300;color:#dcdcdc}
       <h3 class="phase-label">BUILD PATTERNS</h3>
       <div class="grid">
         <a class="card" href="./dapp-developers/qs7-cross-chain-flash-loan.html">
-          <div class="card-head"><h4 class="card-title"><span class="card-num">05</span>Cross-Chain Flash Loan</h4></div>
+          <div class="card-head"><h4 class="card-title"><span class="card-num">06</span>Cross-Chain Flash Loan</h4></div>
           <p class="card-hook">Borrowed tokens go to an L2 and back before the repayment check runs, all inside one L1 transaction.</p>
         </a>
         <a class="card" href="./dapp-developers/qs8-bridge-tokens-both-ways.html">
-          <div class="card-head"><h4 class="card-title"><span class="card-num">06</span>Bridge Tokens Both Ways</h4></div>
+          <div class="card-head"><h4 class="card-title"><span class="card-num">07</span>Bridge Tokens Both Ways</h4></div>
           <p class="card-hook">Run one ETH scenario per direction, L1 to L2 and L2 to L1, each on its own pair of chains, then run the test that sends an ERC-20 through the Bridge.sol test fixture and back.</p>
         </a>
       </div>

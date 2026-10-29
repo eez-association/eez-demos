@@ -125,8 +125,6 @@ echo "== Every page carries its verified-against pin line =="
 # each page must still say which commit it was verified against.
 for f in "${HTML_FILES[@]}"; do
   case "$f" in *q1-compute-your-cross-chain-address.html) continue ;; esac
-  # qs6 is a coming-soon stub with no code to pin yet.
-  case "$f" in *qs6-deploy-your-own-contract.html) continue ;; esac
   # index.html is exempt by owner decision (2026-10-20): the landing page
   # links to walkthroughs, and every walkthrough carries the label itself.
   case "$f" in index.html|./index.html) continue ;; esac
