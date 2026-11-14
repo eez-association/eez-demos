@@ -120,6 +120,9 @@
   .intro-learn li{border-top:1px solid var(--eez-edge);padding-top:16px;font-size:19px;line-height:1.5;color:#d8d8d8;text-wrap:pretty;}
   .intro-learn b{display:block;font-family:var(--mono);font-size:14px;font-weight:400;letter-spacing:0.12em;color:var(--eez-green);margin-bottom:11px;}
   .intro-actions{margin-top:54px;}
+  .intro-mech{margin-top:22px;}
+  .intro-mech li{font-size:17px;}
+  .intro-mech + .intro-learn-label{margin-top:40px;}
   /* Same gradient treatment as .btn-play, one size up for the stage;
      it carries class="btn-play" so it inherits that hover rule and
      the shared button:focus-visible green ring. */
@@ -347,11 +350,11 @@
       <div class="intro-eyebrow">PROTOCOL RESEARCHERS</div>
       <h1 class="intro-title" id="introTitle">How the composer attests a batch</h1>
       <p class="intro-lede">"Attests", not "proves", and the distinction is the page. Three mechanisms sit behind that word, and only the first is what the name "prover" suggests.</p>
-      <p class="intro-lede"><b>Stateless re-execution.</b> The prover is handed a <span style="font-family:var(--mono);">BlockWitness</span> per block, replays each one, validates the batch's settlement effects, and recomputes the hash itself, rather than reading a state database — the request carries no claimed hash at all. That part is real, and step 2 is it.</p>
-      <p class="intro-lede"><b>ECDSA standing in for succinctness.</b> What comes back is not a succinct proof. <span style="font-family:var(--mono);">ECDSAProofSystem</span> is described upstream as a "temporary proof system that uses ECDSA signature recovery instead of a ZK proof", and its <span style="font-family:var(--mono);">verify</span> is two lines: recover the signer from <span style="font-family:var(--mono);">(publicInputsHash, proof)</span>, then compare it to <span style="font-family:var(--mono);">signer</span>. So the guarantee today is that a named signer re-executed and agreed — an attestation bound to that batch's hash, not an unbound mock signature. It is not yet a proof anyone can check without trusting that signer.</p>
-      <p class="intro-lede"><b>A per-rollup prover swap.</b> Which contract does the checking is a per-rollup choice, not a network-wide one. <span style="font-family:var(--mono);">IProofSystem</span> is any contract that can check <span style="font-family:var(--mono);">(proof, publicInputsHash)</span> — ZK, ECDSA, or otherwise — referenced from that rollup's own vkey map. There is no central registry, and upstream is explicit that each rollup owner vets which proof-system addresses their rollup allows. Swapping ECDSA for a real verifier is therefore a per-rollup upgrade, and until a rollup makes it, "attests" is the honest verb for that rollup.</p>
-      <p class="intro-lede">The mechanics below are the first mechanism. The composer opens one gRPC stream to the proof-signer and sends a ProveHeader first — blocks always follow in order.</p>
-      <p class="intro-lede">That one stream carries the header, the blocks and a signature back.</p>
+      <ul class="intro-learn intro-mech">
+        <li><b>STATELESS RE-EXECUTION</b>The prover is handed a <span style="font-family:var(--mono);">BlockWitness</span> per block, replays each one, validates the batch's settlement effects, and recomputes the hash itself, rather than reading a state database — the request carries no claimed hash at all. That part is real, and step 2 is it.</li>
+        <li><b>ECDSA STANDING IN FOR SUCCINCTNESS</b>What comes back is not a succinct proof. <span style="font-family:var(--mono);">ECDSAProofSystem</span> is described upstream as a "temporary proof system that uses ECDSA signature recovery instead of a ZK proof", and its <span style="font-family:var(--mono);">verify</span> is two lines: recover the signer from <span style="font-family:var(--mono);">(publicInputsHash, proof)</span>, then compare it to <span style="font-family:var(--mono);">signer</span>. So the guarantee today is that a named signer re-executed and agreed — an attestation bound to that batch's hash, not an unbound mock signature. It is not yet a proof anyone can check without trusting that signer.</li>
+        <li><b>A PER-ROLLUP PROVER SWAP</b>Which contract does the checking is a per-rollup choice, not a network-wide one. <span style="font-family:var(--mono);">IProofSystem</span> is any contract that can check <span style="font-family:var(--mono);">(proof, publicInputsHash)</span> — ZK, ECDSA, or otherwise — referenced from that rollup's own vkey map. There is no central registry, and upstream is explicit that each rollup owner vets which proof-system addresses their rollup allows. Swapping ECDSA for a real verifier is therefore a per-rollup upgrade, and until a rollup makes it, "attests" is the honest verb for that rollup.</li>
+      </ul>
       <div class="intro-learn-label">WHAT YOU'LL LEARN</div>
       <ul class="intro-learn">
         <li><b>01 · ONE STREAM, ONE JOB</b>One gRPC stream to the proof-signer: ProveHeader first, blocks in order.</li>
