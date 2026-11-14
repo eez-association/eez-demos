@@ -47,6 +47,8 @@ async function open(browser, file, options = {}) {
         const type = { ".html": "text/html", ".js": "text/javascript", ".svg": "image/svg+xml", ".png": "image/png", ".md": "text/plain" }[path.extname(rel)];
         if (!type) { state.unexpected.push(request.url()); await request.abort(); return; }
         await request.respond({ status: 200, contentType: type, body: fs.readFileSync(path.join(root, rel)) });
+      } else if (url.href === "https://static.cloudflareinsights.com/beacon.min.js" && request.resourceType() === "script") {
+        await request.respond({ status: 200, contentType: "text/javascript", body: "" });
       } else if (url.origin === "https://fonts.googleapis.com" && request.resourceType() === "stylesheet") {
         await request.respond({ status: 200, contentType: "text/css", body: "" });
       } else {
